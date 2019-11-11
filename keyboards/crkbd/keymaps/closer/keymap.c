@@ -181,6 +181,8 @@ void iota_gfx_task_user(void) {
 bool CONTROL_PRESSED = false;
 bool COMMAND_PRESSED = false;
 
+bool ALT_ESC_PRESSED = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef SSD1306OLED
@@ -205,20 +207,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     case KC_ESC:
-      if (CONTROL_PRESSED) {
-        if (record->event.pressed) {
+      if (record->event.pressed) {
+        if (CONTROL_PRESSED) {
           register_code(KC_TAB);
-        } else {
-          unregister_code(KC_TAB);
-        }
-        return false;
-      } else if (COMMAND_PRESSED) {
-        if (record->event.pressed) {
+          ALT_ESC_PRESSED = true;
+          return false;
+        } else if (COMMAND_PRESSED) {
           register_code(KC_F1);
-        } else {
-          unregister_code(KC_F1);
+          ALT_ESC_PRESSED = true;
+          return false;
         }
-        return false;
+      } else {
+        if (ALT_ESC_PRESSED) {
+          unregister_code(KC_TAB);
+          unregister_code(KC_F1);
+          ALT_ESC_PRESSED = false;
+          return false;
+        }
       }
       break;
     case QWERTY:
