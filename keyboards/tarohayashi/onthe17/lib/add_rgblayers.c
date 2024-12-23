@@ -26,12 +26,12 @@ void keyboard_post_init_kb(void) {
     rgblight_layers = my_rgb_layers;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     rgblight_set_layer_state(0, ot17_config.rgb_layers && layer_state_cmp(state, 0));
     rgblight_set_layer_state(1, ot17_config.rgb_layers && layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, ot17_config.rgb_layers && layer_state_cmp(state, 2));
     rgblight_set_layer_state(3, ot17_config.rgb_layers && layer_state_cmp(state, 3));
     rgblight_set_layer_state(4, ot17_config.rgb_layers && layer_state_cmp(state, 4));
     rgblight_set_layer_state(5, ot17_config.rgb_layers && layer_state_cmp(state, 5));
-    return state;
+    return layer_state_set_user(state);
 }

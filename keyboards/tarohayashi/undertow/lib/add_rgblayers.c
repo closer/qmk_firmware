@@ -34,7 +34,7 @@ void keyboard_post_init_kb(void) {
     rgblight_layers = my_rgb_layers;
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     rgblight_set_layer_state(0, get_rgblayers() && layer_state_cmp(state, 0));
     rgblight_set_layer_state(1, get_rgblayers() && layer_state_cmp(state, 1));
     rgblight_set_layer_state(2, get_rgblayers() && layer_state_cmp(state, 2));
@@ -45,5 +45,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(7, get_rgblayers() && layer_state_cmp(state, 7));
     rgblight_set_layer_state(8, get_rgblayers() && layer_state_cmp(state, 8));
     rgblight_set_layer_state(9, get_rgblayers() && layer_state_cmp(state, 9));
-    return state;
+    return layer_state_set_user(state);
 }
